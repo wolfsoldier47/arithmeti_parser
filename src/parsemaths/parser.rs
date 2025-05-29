@@ -139,3 +139,11 @@ impl<'a> Parser<'a>{
 }
 
 
+impl fmt::Display for ParseError {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    match &self {
+      self::ParseError::UnableToParse(e) => write!(f,"Error in evaluation {}",e),
+            self::ParseError::InvalidOperator(e) => write!(f,"Error in evaluation {}",e),
+    }
+  }
+}
