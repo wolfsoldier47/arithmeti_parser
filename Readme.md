@@ -17,11 +17,18 @@ Supported Operation:
 ## Building from scratch
 
 ```
-cargo build
+make build
 ```
 
 ### if you want to build for release
 
 ```
-cargo build --release
+make release
+```
+
+
+### if you want change code and want to link
+
+```
+make lint
 ```

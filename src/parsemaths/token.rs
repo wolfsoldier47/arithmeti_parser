@@ -8,7 +8,7 @@ pub enum Token{
   LeftParen,
   RightParen,
   Num(f64),
-  EOF
+  Eof
 }
 
 

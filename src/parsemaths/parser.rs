@@ -7,6 +7,8 @@ use super::ast::Node;
 
 
 // Custom Error handling
+
+#[derive(Debug)]
 pub enum ParseError {
   UnableToParse(String),
   InvalidOperator(String),
@@ -92,7 +94,7 @@ impl<'a> Parser<'a>{
   fn generate_ast(&mut self,oper_prec: token::OperPrec) -> Result<Node,ParseError> {
     let mut left_expr = self.parse_number()?;
     while oper_prec < self.current_token.get_oper_prec() {
-      if self.current_token == token::Token::EOF {
+      if self.current_token == token::Token::Eof {
         break;
       }
       let right_expr = self.convert_token_to_node(left_expr.clone())?;
@@ -150,6 +152,20 @@ impl fmt::Display for ParseError {
 
 impl std::convert::From<std::boxed::Box<dyn std::error::Error>> for ParseError {
   fn from(_evalerr: std::boxed::Box<dyn std::error::Error>) -> Self {
-    return ParseError::UnableToParse("Unable to parse".into());
+    ParseError::UnableToParse("Unable to parse".into())
   }
+}
+
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use ast::Node::{Add, Number};
+    #[test]
+    fn test_addition() {
+        let mut parser = Parser::new("1+2").unwrap();
+        let expected = Add(Box::new(Number(1.0)), Box::new(Number(2.0)));
+        assert_eq!(parser.parse().unwrap(), expected);
+    }
 }

@@ -1,7 +1,7 @@
 
 use std::error;
 
-#[derive(Debug,Clone)]
+#[derive(Debug,Clone,PartialEq)]
 pub enum Node {
   Add(Box<Node>, Box<Node>),
   Subtract(Box<Node>, Box<Node>),

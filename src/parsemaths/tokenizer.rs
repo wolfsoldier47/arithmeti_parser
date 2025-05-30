@@ -42,7 +42,7 @@ type Item = Token;
       Some('^') => Some(Token::Caret),
       Some('(') => Some(Token::LeftParen),
       Some(')') => Some(Token::RightParen),
-      None => Some(Token::EOF),
+      None => Some(Token::Eof),
       Some(_) => None,
     }
   }
@@ -52,3 +52,28 @@ type Item = Token;
 //   type Item;
 //   fn next(&mut self) -> Option<Self::Item>;
 // }
+
+
+
+//unit test
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_positive_integer() {
+        let mut tokenizer = Tokenizer::new("34");
+        assert_eq!(tokenizer.next().unwrap(), Token::Num(34.0))
+    }
+    #[test]
+    fn test_decimal_number() {
+        let mut tokenizer = Tokenizer::new("34.5");
+        assert_eq!(tokenizer.next().unwrap(), Token::Num(34.5))
+    }
+    #[test]
+    #[ignore]
+    fn test_invalid_char() {
+        let mut tokenizer = Tokenizer::new("#$%");
+        assert_eq!(tokenizer.next().unwrap(), Token::Num(34.5));
+    }
+}
