@@ -1,8 +1,7 @@
-use std::ops::Mul;
 
 use std::error;
 
-#[derive(Clone)]
+#[derive(Debug,Clone)]
 pub enum Node {
   Add(Box<Node>, Box<Node>),
   Subtract(Box<Node>, Box<Node>),

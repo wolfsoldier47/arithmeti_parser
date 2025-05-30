@@ -1,4 +1,4 @@
-use std::{fmt::{self, write}, result};
+use std::{fmt};
 
 use super::{token, tokenizer::Tokenizer,ast};
 
@@ -21,7 +21,7 @@ pub struct Parser<'a> {
 
 
 impl<'a> Parser<'a>{
-  fn new(expr: &'a str) -> Result<Self,ParseError> {
+  pub fn new(expr: &'a str) -> Result<Self,ParseError> {
 
     let mut lexer = Tokenizer::new(expr);
     let cur_token = match lexer.next() {
